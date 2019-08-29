@@ -1,0 +1,61 @@
+{
+    "name": "olcs/olcs-companies-house",
+    "description": "companies house api client",
+    "type": "library",
+    "license": "proprietary",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "packagist": false
+        },
+        {
+            "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS",
+            "type": "composer"
+        },
+        {
+            "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/Packagist-Proxy",
+            "type": "composer"
+        }
+    ],
+    "require": {
+        "zendframework/zendframework": "~2.4.0",
+        "elendev/nexus-composer-push": "^0.1",
+        "olcs/olcs-devtools": "^4.205",
+        "olcs/olcs-utils": "~4.206.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "7.*",
+        "mockery/mockery": "^1.2",
+        "phpstan/phpstan": "^0.11.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dvsa\\Olcs\\CompaniesHouse\\": "src",
+            "Dvsa\\Olcs\\CompaniesHouse\\Test\\": "test"
+        }
+    },
+    "config": {
+        "secure-http": false
+    },
+    "scripts": {
+        "ut": "phpunit test --stop-on-failure",
+        "review": "review",
+        "cs": "phpcs --severity=1 --standard=vendor/olcs/coding-standards/Profiles/DVSA/CS/ruleset.xml",
+        "coverage": "phpunit -c test/phpunit.xml --coverage-html ./test/coverage/html",
+        "sonar": "phpunit -c test/phpunit.xml --coverage-clover ./test/coverage/coverage-report.clover --log-junit ./test/coverage/log.junit",
+        "update-syms": "composer-update-syms",
+        "release": "release",
+        "sa": "phpstan analyse --level 7 src --ansi"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        },
+        "nexus-push": {
+            "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/olcs-companies-house",
+            "ignore": [
+                "tests"
+            ]
+        }
+    }
+}
