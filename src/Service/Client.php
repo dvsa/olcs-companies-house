@@ -100,6 +100,25 @@ class Client
     }
 
     /**
+     * Get company insolvency practitioner data from Company House API
+     *
+     * @param string $companyNumber   Company number
+     *
+     * @return array
+     * @throws Exception
+     */
+    public function getCompanyInsolvency($companyNumber)
+    {
+        $companyProfile = $this->getData('/insolvency/' . strtoupper($companyNumber));
+
+        if (!isset($companyPro['cases'])) {
+            throw new ServiceException(self::ERR_INVALID_JSON);
+        }
+
+        return $companyProfile;
+    }
+
+    /**
      * Return active officers in the same format as was previously included
      * in the CompanyProfile response
      *
