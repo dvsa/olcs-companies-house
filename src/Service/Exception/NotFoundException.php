@@ -2,7 +2,6 @@
 
 namespace Dvsa\Olcs\CompaniesHouse\Service\Exception;
 
-use Dvsa\Olcs\CompaniesHouse\Service\Exception as ServiceException;
 
 /**
  * NotFound Exception

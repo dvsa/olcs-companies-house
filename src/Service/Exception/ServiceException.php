@@ -5,13 +5,13 @@
  *
  * @author Dan Eggleston <dan@stolenegg.com>
  */
-namespace Dvsa\Olcs\CompaniesHouse\Service;
+namespace Dvsa\Olcs\CompaniesHouse\Service\Exception;
 
 /**
  * Exception
  *
  * @author Dan Eggleston <dan@stolenegg.com>
  */
-class Exception extends \Exception
+class ServiceException extends \Exception
 {
 }

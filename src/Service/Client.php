@@ -2,9 +2,9 @@
 
 namespace Dvsa\Olcs\CompaniesHouse\Service;
 
-use Dvsa\Olcs\CompaniesHouse\Service\Exception as ServiceException;
-use Dvsa\Olcs\CompaniesHouse\Service\Exception\RateLimitException;
 use Dvsa\Olcs\CompaniesHouse\Service\Exception\NotFoundException;
+use Dvsa\Olcs\CompaniesHouse\Service\Exception\RateLimitException;
+use Dvsa\Olcs\CompaniesHouse\Service\Exception\ServiceException;
 use Zend\Http\Client as HttpClient;
 
 /**
@@ -77,11 +77,11 @@ class Client
     /**
      * Get company data and company officers data from Company House API
      *
-     * @param string $companyNumber   Company number
-     * @param bool   $includeOfficers True, if need also request officers
+     * @param string $companyNumber Company number
+     * @param bool $includeOfficers True, if need also request officers
      *
      * @return array
-     * @throws Exception
+     * @throws ServiceException
      */
     public function getCompanyProfile($companyNumber, $includeOfficers = true)
     {
@@ -102,20 +102,20 @@ class Client
     /**
      * Get company insolvency practitioner data from Company House API
      *
-     * @param string $companyNumber   Company number
+     * @param string $companyNumber Company number
      *
      * @return array
-     * @throws Exception
+     * @throws ServiceException
      */
-    public function getCompanyInsolvency($companyNumber)
+    public function getInsolvencyDetails($companyNumber)
     {
-        $companyProfile = $this->getData('/insolvency/' . strtoupper($companyNumber));
+        $insolvencyDetails = $this->getData('/company/' . strtoupper($companyNumber) . '/insolvency');
 
-        if (!isset($companyPro['cases'])) {
+        if (!isset($insolvencyDetails['cases'])) {
             throw new ServiceException(self::ERR_INVALID_JSON);
         }
 
-        return $companyProfile;
+        return $insolvencyDetails['cases'];
     }
 
     /**
