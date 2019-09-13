@@ -4,6 +4,9 @@ namespace Dvsa\Olcs\CompaniesHouse\Test\Service;
 
 use Dvsa\Olcs\CompaniesHouse\Service\Client;
 use Dvsa\Olcs\CompaniesHouse\Service\Exception;
+use Dvsa\Olcs\CompaniesHouse\Service\Exception\NotFoundException;
+use Dvsa\Olcs\CompaniesHouse\Service\Exception\RateLimitException;
+use Dvsa\Olcs\CompaniesHouse\Service\Exception\ServiceException;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Zend\Http\Response;
@@ -58,7 +61,8 @@ class ClientTest extends MockeryTestCase
     public function testGetCompanyProfileFailInvalidJson()
     {
         //  expect
-        $this->expectException(Exception::class, Client::ERR_INVALID_JSON);
+        $this->expectException(ServiceException::class);
+        $this->expectExceptionMessage(Client::ERR_INVALID_JSON);
 
         //  call
         $response = new Response();
@@ -131,37 +135,37 @@ class ClientTest extends MockeryTestCase
             [
                 'statusCode' => Response::STATUS_CODE_404,
                 'content' => '{"errors": [{"error": "not found"}]}',
-                'errClass' => Exception::class,
+                'errClass' => ServiceException::class,
                 'errMsg' => Client::ERR_SERVICE_NOT_RESPOND,
             ],
             [
                 'statusCode' => Response::STATUS_CODE_404,
                 'content' => '{"errors": [{"error": "' . Client::ERR_KEY_COMPANY_PROFILE_NOT_FOUND . '"}]}',
-                'errClass' => Exception\NotFoundException::class,
+                'errClass' => NotFoundException::class,
                 'errMsg' => Client::ERR_COMPANY_PROFILE_NOT_FOUND,
             ],
             [
                 'statusCode' => Response::STATUS_CODE_429,
                 'content' => '',
-                'errClass' => Exception\RateLimitException::class,
+                'errClass' => RateLimitException::class,
                 'errMsg' => Client::ERR_RATE_LIMIT_EXCEED,
             ],
             [
                 'statusCode' => Response::STATUS_CODE_500,
                 'content' => '{"body": "test"}',
-                'errClass' => Exception::class,
+                'errClass' => ServiceException::class,
                 'errMsg' => '{"body": "test"}',
             ],
             [
                 'statusCode' => Response::STATUS_CODE_200,
                 'content' => 'non-json content',
-                'errClass' => Exception::class,
+                'errClass' => ServiceException::class,
                 'errMsg' => Client::ERR_INVALID_JSON,
             ],
             [
                 'statusCode' => Response::STATUS_CODE_404,
                 'content' => '{"errors":[{"type":"ch:service","error":"company-profile-not-found"}]}',
-                'errClass' => Exception\NotFoundException::class,
+                'errClass' => NotFoundException::class,
                 'errMsg' => Client::ERR_COMPANY_PROFILE_NOT_FOUND,
             ],
         ];
