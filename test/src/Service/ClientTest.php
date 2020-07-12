@@ -26,7 +26,7 @@ class ClientTest extends MockeryTestCase
     /** @var  m\MockInterface */
     private $mockRequest;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->mockRequest = m::mock(\Zend\Http\Request::class)->makePartial();
         $this->mockRequest->shouldReceive('setMethod')->with('GET')->andReturnSelf();

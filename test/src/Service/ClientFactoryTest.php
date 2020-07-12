@@ -19,7 +19,7 @@ class ClientFactoryTest extends MockeryTestCase
     /** @var  \Zend\ServiceManager\ServiceLocatorInterface|m\MockInterface */
     private $sl;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->sl = m::mock(\Zend\ServiceManager\ServiceLocatorInterface::class);
 
