@@ -9,7 +9,7 @@ use Dvsa\Olcs\CompaniesHouse\Service\Exception\RateLimitException;
 use Dvsa\Olcs\CompaniesHouse\Service\Exception\ServiceException;
 use Mockery as m;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
-use Zend\Http\Response;
+use Laminas\Http\Response;
 
 /**
  * @covers Dvsa\Olcs\CompaniesHouse\Service\Client
@@ -21,17 +21,17 @@ class ClientTest extends MockeryTestCase
     /** @var  Client */
     protected $sut;
 
-    /** @var  \Zend\Http\Client|m\MockInterface */
+    /** @var  \Laminas\Http\Client|m\MockInterface */
     private $mockHttpClient;
     /** @var  m\MockInterface */
     private $mockRequest;
 
     public function setUp(): void
     {
-        $this->mockRequest = m::mock(\Zend\Http\Request::class)->makePartial();
+        $this->mockRequest = m::mock(\Laminas\Http\Request::class)->makePartial();
         $this->mockRequest->shouldReceive('setMethod')->with('GET')->andReturnSelf();
 
-        $this->mockHttpClient = m::mock(\Zend\Http\Client::class)
+        $this->mockHttpClient = m::mock(\Laminas\Http\Client::class)
             ->shouldReceive('getRequest')->with()->once()->andReturn($this->mockRequest)
             ->getMock();
 

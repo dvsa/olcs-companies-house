@@ -4,9 +4,9 @@ namespace Dvsa\Olcs\CompaniesHouse\Service;
 
 use Dvsa\Olcs\Utils\Client\ClientAdapterLoggingWrapper;
 use RuntimeException;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Http\Client as HttpClient;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\Http\Client as HttpClient;
 use Olcs\Logging\Log\Logger;
 
 /**
@@ -68,7 +68,7 @@ class ClientFactory implements FactoryInterface
      * @param string $key
      *
      * @throws \RuntimeException
-     * @return \Zend\Stdlib\AbstractOptions
+     * @return \Laminas\Stdlib\AbstractOptions
      */
     public function getOptions(ServiceLocatorInterface $sl, $key)
     {

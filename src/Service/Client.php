@@ -5,7 +5,7 @@ namespace Dvsa\Olcs\CompaniesHouse\Service;
 use Dvsa\Olcs\CompaniesHouse\Service\Exception\NotFoundException;
 use Dvsa\Olcs\CompaniesHouse\Service\Exception\RateLimitException;
 use Dvsa\Olcs\CompaniesHouse\Service\Exception\ServiceException;
-use Zend\Http\Client as HttpClient;
+use Laminas\Http\Client as HttpClient;
 
 /**
  * Class Client
@@ -51,7 +51,7 @@ class Client
     /**
      * Set client to company house Api
      *
-     * @param \Zend\Http\Client $httpClient Http Client to CP Api
+     * @param \Laminas\Http\Client $httpClient Http Client to CP Api
      *
      * @return $this
      */
@@ -173,7 +173,7 @@ class Client
             ->setUri($uri)
             ->setMethod('GET');
 
-        /** @var $response \Zend\Http\Response */
+        /** @var $response \Laminas\Http\Response */
         $response = $this->httpClient->send();
 
         $statusCode = $response->getStatusCode();
@@ -185,10 +185,10 @@ class Client
         if (!$response->isOk()) {
             $errors = (isset($body['errors']) ? $body['errors'] : []);
 
-            if ($statusCode === \Zend\Http\Response::STATUS_CODE_429) {
+            if ($statusCode === \Laminas\Http\Response::STATUS_CODE_429) {
                 $reason = self::ERR_RATE_LIMIT_EXCEED;
                 $exceptionClass = RateLimitException::class;
-            } elseif ($statusCode === \Zend\Http\Response::STATUS_CODE_404) {
+            } elseif ($statusCode === \Laminas\Http\Response::STATUS_CODE_404) {
                 //  set common reason and exception class
                 $reason = self::ERR_SERVICE_NOT_RESPOND;
                 $exceptionClass = ServiceException::class;
