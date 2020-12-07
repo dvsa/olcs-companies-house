@@ -16,12 +16,12 @@ class ClientFactoryTest extends MockeryTestCase
 {
     /** @var  ClientFactory */
     protected $sut;
-    /** @var  \Zend\ServiceManager\ServiceLocatorInterface|m\MockInterface */
+    /** @var  \Laminas\ServiceManager\ServiceLocatorInterface|m\MockInterface */
     private $sl;
 
     public function setUp(): void
     {
-        $this->sl = m::mock(\Zend\ServiceManager\ServiceLocatorInterface::class);
+        $this->sl = m::mock(\Laminas\ServiceManager\ServiceLocatorInterface::class);
 
         $this->sut = new ClientFactory();
     }
