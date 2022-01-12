@@ -18,7 +18,7 @@
         }
     ],
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.4",
         "laminas/laminas-http": "^2.5",
         "laminas/laminas-servicemanager": "^2.5",
         "laminas/laminas-stdlib": "^2.5",
