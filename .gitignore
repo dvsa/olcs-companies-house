@@ -3,3 +3,4 @@ coverage.xml
 test/coverage
 test/review
 composer.lock
+.idea
