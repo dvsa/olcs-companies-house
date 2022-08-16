@@ -21,7 +21,7 @@ class ClientFactoryTest extends MockeryTestCase
 
     public function setUp(): void
     {
-        $this->sl = m::mock(\Laminas\ServiceManager\ServiceLocatorInterface::class);
+        $this->sl = m::mock(\Laminas\ServiceManager\ServiceLocatorInterface::class)->makePartial();
 
         $this->sut = new ClientFactory();
     }
@@ -34,7 +34,7 @@ class ClientFactoryTest extends MockeryTestCase
         //  call
         $this->sl->shouldReceive('get')->with('Configuration')->once()->andReturn([]);
 
-        $this->sut->createService($this->sl);
+        $this->sut->__invoke($this->sl, Client::class, null);
     }
 
     public function testOptionsBaseUriMissing()
@@ -53,7 +53,7 @@ class ClientFactoryTest extends MockeryTestCase
             ]
         );
 
-        $this->sut->createService($this->sl);
+        $this->sut->__invoke($this->sl, Client::class, null);
     }
 
     public function testOptions()
@@ -75,7 +75,7 @@ class ClientFactoryTest extends MockeryTestCase
             ]
         );
 
-        $service = $this->sut->createService($this->sl);
+        $service = $this->sut->__invoke($this->sl, Client::class, null);
 
         static::assertInstanceOf(Client::class, $service);
     }
